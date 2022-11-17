@@ -1,17 +1,36 @@
-import { useRef, useEffect } from "react";
-
+import { useRef, useEffect, useState } from "react";
+import useEth from "../../contexts/EthContext/useEth";
+ 
 function Contract({ value, valueStr }) {
   const spanEle = useRef(null);
+  const [EventValue, setEventValue] = useState("");
+  const [oldEvents, setOldEvents] = useState();
+
+  const { state: { contract } } = useEth();
 
   useEffect(() => {
-    spanEle.current.classList.add("flash");
-    const flash = setTimeout(() => {
-      spanEle.current.classList.remove("flash");
-    }, 300);
-    return () => {
-      clearTimeout(flash);
-    };
-  }, [value]);
+    (async function () {
+      let oldEvents= await contract.getPastEvents('valueChanged', {
+        fromBlock:0,
+        toBlock: 'latest'
+      });
+      let oldies=[];
+      oldEvents.forEach(event => {
+        oldies.push(event.returnValues._val);
+      });
+      setOldEvents(oldies);
+
+      await contract.events.valueChanged({fromBlock:"earliest"})
+      .on('data',event => {
+        let lesevents = event.returnValues._val;
+        setEventValue(lesevents);
+      })
+      .on('changed', changed => console.log(changed))
+      .on('error', err => console.log(err))
+      .on('connected', str => console.log(str))
+    })();
+
+  }, [contract]);
 
   return (
     <code>
@@ -37,7 +56,11 @@ function Contract({ value, valueStr }) {
   function write(uint256 newValue) public {
     value = newValue;
   }
-}`}
+}
+Events arriving: `} {EventValue} {`
+ 
+Old events: `} {oldEvents}
+
     </code>
   );
 }

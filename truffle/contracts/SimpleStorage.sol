@@ -5,12 +5,15 @@ contract SimpleStorage {
   uint256 value;
   string greetings;
 
+  event valueChanged(uint _val);
+
   function read() public view returns (uint256) {
     return value;
   }
 
   function write(uint256 newValue) public {
     value = newValue;
+    emit valueChanged(newValue);
   }
 
   function setGreet(string memory _greet) public {
