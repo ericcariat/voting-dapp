@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-function Contract({ value }) {
+function Contract({ value, valueStr }) {
   const spanEle = useRef(null);
 
   useEffect(() => {
@@ -15,7 +15,13 @@ function Contract({ value }) {
 
   return (
     <code>
-      {`contract SimpleStorage {
+      {`GREET valueStr = `}
+      <span className="secondary-color" ref={spanEle}>
+        <strong>{valueStr}</strong>
+      </span>
+
+      {`
+      contract SimpleStorage {
   uint256 value = `}
 
       <span className="secondary-color" ref={spanEle}>
