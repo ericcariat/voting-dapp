@@ -1,8 +1,6 @@
 import { EthProvider } from "./contexts/EthContext";
-import Intro from "./components/Intro/";
-import Setup from "./components/Setup";
-import Demo from "./components/Demo";
-import Footer from "./components/Footer";
+import Web3stuff from "./components/Web3stuff";
+
 import "./App.css";
 
 function App() {
@@ -10,13 +8,7 @@ function App() {
     <EthProvider>
       <div id="App" >
         <div className="container">
-          <Intro />
-          <hr />
-          <Setup />
-          <hr />
-          <Demo />
-          <hr />
-          <Footer />
+          <Web3stuff />
         </div>
       </div>
     </EthProvider>
