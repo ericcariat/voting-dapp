@@ -3,6 +3,8 @@ import useEth from "../../contexts/EthContext/useEth";
 import Address from "./Address";
 import ButtonAddVoter from "./ButtonAddVoter";
 import ButtonAddSequence from "./ButtonAddSequence";
+import ButtonProposal from "./ButtonProposal";
+
 
 function Web3stuff() {
   const { state: { contract, accounts } } = useEth();
@@ -52,6 +54,10 @@ function Web3stuff() {
             </div>
          </div>
         )}
+
+        <div className="section4">
+          <ButtonProposal />
+        </div> 
         
     </div>
   );
