@@ -13,7 +13,7 @@ function Address() {
 
   return (
     <div className="addr">
-        Votre address eth:
+        You are connected with your wallet and address is:
         <br />
         {accounts && accounts[0] && <pre>{accounts[0]}</pre>}
     </div>
