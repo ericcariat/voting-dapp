@@ -15,9 +15,13 @@ function ButtonAddVoter() {
   // TODO validate checksum address 
   const addVoter = async () => {
     
-    await contract.methods.addVoter(inputAddress).send({from: accounts[0]});
-    console.log("addVoter");
-    console.log("added voter with address : ", inputAddress);
+    await contract.methods.addVoter(inputAddress).send({from: accounts[0]})
+    .on('VoterRegistered', (address) => {
+        console.log("addVoter");
+        console.log("added voter with address : ", address);
+    })
+    
+
     //setListAddress( arr => [...arr, inputAddress]);
     //console.log("listAddress : ", listAddress);
   };
