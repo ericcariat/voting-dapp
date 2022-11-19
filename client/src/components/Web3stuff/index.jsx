@@ -22,6 +22,7 @@ function Web3stuff() {
   }, [contract]);
 
   const getOwner = async () => {
+     
      const ownervar = await contract.methods.owner().call({from:accounts[0]});
      console.log("owner : " + ownervar + " accounts[0] : " + accounts[0] );
      console.log("isOwner : " + (ownervar.toLowerCase() === accounts[0].toLowerCase()));
@@ -32,17 +33,20 @@ function Web3stuff() {
   return (
     <div className="web3stuff">
         <Address accounts={accounts}/>
+        {(owner && owner.length > 0) && (
+                <div className="ownerAddressClass">
+                    The owner address is: <br /> {owner} <br />
+                </div>
+        )}
+        <div className="section">
+          {isAdmin==true ? <div className="adminDiv">Owner is connected : YES</div> : <div className="adminDiv">Owner is connected : NO</div>  } 
+        </div>
+
         {balance==0 ? <div className="bal">Vous n'avez aucun token pour le moment.</div> : <Balance balance={balance}  />} 
         <Button refreshBalance={refreshBalance}/>
         <ButtonAddVoter />
-        {(owner && owner.length > 0) && (
-                <div className="paddingBelow">
-                    The owner address is: {owner}
-                </div>
-            )}
-    <div className="section">
-      {isAdmin==true ? <div className="adminDiv">YES</div> : <div className="adminDiv">NO</div>  } 
-    </div>
+
+
     </div>
   );
 }

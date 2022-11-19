@@ -4,18 +4,22 @@ import useEth from "../../contexts/EthContext/useEth";
 function ButtonAddVoter() {
   const { state: { contract, accounts, web3 } } = useEth();
   const [inputAddress, setInputAddress] = useState("");
+  const [listAddress, setListAddress] = useState([]);
 
   const handleAddressChange = e => {
-    //if (/^(0x){1}[0-9a-fA-F]{40}$/i.test(e.target.value)) {
+    if (/^(0x){1}[0-9a-fA-F]{40}$/i.test(e.target.value)) {
         setInputAddress(e.target.value);
     }
-  //};
+  };
 
   // TODO validate checksum address 
   const addVoter = async () => {
-    console.log("addVoter");
+    
     await contract.methods.addVoter(inputAddress).send({from: accounts[0]});
-    console.log("added voter");
+    console.log("addVoter");
+    console.log("added voter with address : ", inputAddress);
+    //setListAddress( arr => [...arr, inputAddress]);
+    //console.log("listAddress : ", listAddress);
   };
 
  // useEffect(() => {
