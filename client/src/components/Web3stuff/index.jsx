@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 import Address from "./Address";
 import ButtonAddVoter from "./ButtonAddVoter";
+import ButtonAddSequence from "./ButtonAddSequence";
 
 function Web3stuff() {
   const { state: { contract, accounts } } = useEth();
