@@ -12,63 +12,23 @@ function Web3stuff() {
   const [EventValue, setEventValue] = useState("");
   const [oldEvents, setOldEvents] = useState([]);
   const [inputAddress, setInputAddress] = useState("");
-
+  
+  const getOwner = async () => {
+    
+    const ownervar = await contract.methods.owner().call({from:accounts[0]});
+    console.log("owner : " + ownervar + " accounts[0] : " + accounts[0] );
+    console.log("isOwner : " + (ownervar.toLowerCase() === accounts[0].toLowerCase()));
+    setAdmin((ownervar.toLowerCase() === accounts[0].toLowerCase()));
+    setOwner(ownervar);
+  };
 
   useEffect(() => {
     console.log("contract.methods", contract);
 
     if (contract?.methods) {
       getOwner();
-      //getAddressList();
-      //setupLoop();
     }
   }, [contract]);
-
-  useEffect(() => {
-    console.log("useEffect2", contract);
-
-    if (contract) {
-    (async function () {
- 
-        let oldEvents= await contract.getPastEvents("VoterRegistered", {
-          fromBlock: 0,
-          toBlock: 'latest'
-        });
-        let oldies=[];
-        oldEvents.forEach(event => {
-            oldies.push(event.returnValues.voterAddress);
-        });
-        setOldEvents(oldies);
-      }
-    )();
-    }
-  }, []);
-
-  useEffect(() => {
-    console.log("Ici c'est bon !", oldEvents);
-  }, [oldEvents]);
-
-  const handleAddressChange = e => {
-    if (/^(0x){1}[0-9a-fA-F]{40}$/i.test(e.target.value)) {
-        setInputAddress(e.target.value);
-        console.log("isAdmoin = ",isAdmin);
-    }
-  };
-  const getOwner = async () => {
-     
-     const ownervar = await contract.methods.owner().call({from:accounts[0]});
-     console.log("owner : " + ownervar + " accounts[0] : " + accounts[0] );
-     console.log("isOwner : " + (ownervar.toLowerCase() === accounts[0].toLowerCase()));
-     setAdmin((ownervar.toLowerCase() === accounts[0].toLowerCase()));
-     setOwner(ownervar);
-   };
-   
-   const addVoter = async () => {
-    console.log("add a voter");
-    const transac = await contract.methods.addVoter(inputAddress).send({from: accounts[0]});
-    //setListAddress( arr => [...arr, inputAddress]);
-    //console.log("listAddress : ", listAddress);
-  };
 
   return (
     <div className="web3stuff">
@@ -83,16 +43,7 @@ function Web3stuff() {
         </div>
 
         <div className="section2">
-        <input
-            type="text"
-            placeholder="address"
-            value={inputAddress}
-            onChange={handleAddressChange}
-        />
-
-        <button onClick={addVoter} className="input-btn">
-            Add a VoterIdx
-        </button>
+          <ButtonAddVoter />
         </div>
         
     </div>

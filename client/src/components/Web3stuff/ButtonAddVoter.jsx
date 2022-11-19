@@ -14,11 +14,30 @@ function ButtonAddVoter(props) {
   };
 
   // TODO validate checksum address 
+//   const addVoter = async () => {
+//     console.log("add a voter");
+//     const transac = await contract.methods.addVoter(inputAddress).send({from: accounts[0]});
+//     //setListAddress( arr => [...arr, inputAddress]);
+//     //console.log("listAddress : ", listAddress);
+//   };
+
   const addVoter = async () => {
-    console.log("add a voter");
+
     const transac = await contract.methods.addVoter(inputAddress).send({from: accounts[0]});
-    //setListAddress( arr => [...arr, inputAddress]);
-    //console.log("listAddress : ", listAddress);
+        
+    console.log("added voter");
+        
+    let addresses = await contract.getPastEvents("VoterRegistered", {
+        fromBlock: 0,
+        toBlock: "latest",
+        });
+    
+    setListAddress(
+        addresses.map((add) => {
+            return add.returnValues.voterAddress;
+            })
+        );
+    console.log("List all voter address ",listAddress);
   };
 
  // useEffect(() => {
@@ -35,23 +54,15 @@ function ButtonAddVoter(props) {
   return (
         <div className="btns">
 
-        <input
-            type="text"
-            placeholder="address"
-            value={inputAddress}
-            onChange={handleAddressChange}
-        />
+        <input type="text" placeholder="addressList" value={inputAddress} onChange={handleAddressChange} />
 
-        <div className="addVoter">
-        
-        <button onClick={addVoter} className="input-btn">
-            Add a Voter
-        </button>
-        
-        </div>
+            <div className="addVoter">
+            
+                <button onClick={addVoter} className="input-btn"> Add a Voter </button>
+
+            </div>
 
         </div>
-
   );
 }
 
