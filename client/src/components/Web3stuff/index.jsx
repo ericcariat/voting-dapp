@@ -42,9 +42,15 @@ function Web3stuff() {
           {isAdmin==true ? <div className="adminDiv">Owner is connected : YES</div> : <div className="adminDiv">Owner is connected : NO</div>  } 
         </div>
 
-        <div className="section2">
-          <ButtonAddVoter />
-        </div>
+        { // Only for the owner ;-)
+         isAdmin && (
+          <div className="section2">
+            <ButtonAddVoter />
+              <div className="section3">
+              <ButtonAddSequence />
+            </div>
+         </div>
+        )}
         
     </div>
   );
