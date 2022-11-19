@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 import Address from "./Address";
-import Balance from "./Balance";
-import Button from "./Button";
 import ButtonAddVoter from "./ButtonAddVoter";
 
 function Web3stuff() {
@@ -10,13 +8,10 @@ function Web3stuff() {
   const [balance, setBalance] = useState();
   const [owner, setOwner] = useState("");
   const [isAdmin, setAdmin] = useState("false");
-  const refreshBalance = async () => {
-
-  }
 
   useEffect(() => {
+    console.log("contract.methods", contract);
     if (contract?.methods) {
-        refreshBalance();
         getOwner();
     }
   }, [contract]);
@@ -38,15 +33,12 @@ function Web3stuff() {
                     The owner address is: <br /> {owner} <br />
                 </div>
         )}
-        <div className="section">
+        <div className="section1">
           {isAdmin==true ? <div className="adminDiv">Owner is connected : YES</div> : <div className="adminDiv">Owner is connected : NO</div>  } 
         </div>
 
-        {balance==0 ? <div className="bal">Vous n'avez aucun token pour le moment.</div> : <Balance balance={balance}  />} 
-        <Button refreshBalance={refreshBalance}/>
-        <ButtonAddVoter />
-
-
+        { isAdmin && ( <ButtonAddVoter isAdmin={isAdmin}/> )}
+    
     </div>
   );
 }

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ButtonAddVoter() {
+function ButtonAddVoter(props) {
   const { state: { contract, accounts, web3 } } = useEth();
   const [inputAddress, setInputAddress] = useState("");
   const [listAddress, setListAddress] = useState([]);
@@ -9,19 +9,14 @@ function ButtonAddVoter() {
   const handleAddressChange = e => {
     if (/^(0x){1}[0-9a-fA-F]{40}$/i.test(e.target.value)) {
         setInputAddress(e.target.value);
+        console.log("isAdmoin = ",props.isAdmin);
     }
   };
 
   // TODO validate checksum address 
   const addVoter = async () => {
-    
-    await contract.methods.addVoter(inputAddress).send({from: accounts[0]})
-    .on('VoterRegistered', (address) => {
-        console.log("addVoter");
-        console.log("added voter with address : ", address);
-    })
-    
-
+    console.log("add a voter");
+    const transac = await contract.methods.addVoter(inputAddress).send({from: accounts[0]});
     //setListAddress( arr => [...arr, inputAddress]);
     //console.log("listAddress : ", listAddress);
   };
@@ -38,21 +33,25 @@ function ButtonAddVoter() {
 //    readState(workflowStatus[data]);
 //}
   return (
-    <div className="btns">
+        <div className="btns">
 
-      <input
-        type="text"
-        placeholder="address"
-        value={inputAddress}
-        onChange={handleAddressChange}
-      />
+        <input
+            type="text"
+            placeholder="address"
+            value={inputAddress}
+            onChange={handleAddressChange}
+        />
 
-      <div className="addVoter">
-      <button onClick={addVoter} className="input-btn">
-        Add a Voter
-      </button>
-      </div>
-    </div>
+        <div className="addVoter">
+        
+        <button onClick={addVoter} className="input-btn">
+            Add a Voter
+        </button>
+        
+        </div>
+
+        </div>
+
   );
 }
 
