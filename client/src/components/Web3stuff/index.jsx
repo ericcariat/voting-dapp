@@ -11,6 +11,7 @@ function Web3stuff() {
   const [balance, setBalance] = useState();
   const [owner, setOwner] = useState("");
   const [isAdmin, setAdmin] = useState("false");
+  const [isVoter, setVoter] = useState("false");
   const [listAddress, setlistAddress] = useState([]);
   const [EventValue, setEventValue] = useState("");
   const [oldEvents, setOldEvents] = useState([]);
@@ -49,15 +50,19 @@ function Web3stuff() {
          isAdmin && (
           <div className="section2">
             <ButtonAddVoter />
+              
               <div className="section3">
               <ButtonAddSequence />
+            
             </div>
          </div>
         )}
 
+        { // Only for voters
+         isVoter && (
         <div className="section4">
           <ButtonProposal />
-        </div> 
+        </div> )}
         
     </div>
   );
