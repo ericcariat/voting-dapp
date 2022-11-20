@@ -9,21 +9,39 @@ import ButtonProposal from "./ButtonProposal";
 function Web3stuff() {
   const { state: { contract, accounts } } = useEth();
   const [balance, setBalance] = useState();
-  const [owner, setOwner] = useState("");
-  const [isAdmin, setAdmin] = useState("false");
-  const [isVoter, setVoter] = useState("false");
+  const [ownerAddress, setOwnerAddress] = useState("");
+  const [isAdmin, setAdmin] = useState(false);
+  const [isVoter, setVoter] = useState(false);
   const [listAddress, setlistAddress] = useState([]);
   const [EventValue, setEventValue] = useState("");
   const [oldEvents, setOldEvents] = useState([]);
   const [inputAddress, setInputAddress] = useState("");
-  
-  const getOwner = async () => {
-    
+  const [workflowState, setworkflowState] = useState("0");
+
+  /** Check if we are the owner and set isAdmin var and store owner address
+   */
+  const getOwner = async () => { 
     const ownervar = await contract.methods.owner().call({from:accounts[0]});
     console.log("owner : " + ownervar + " accounts[0] : " + accounts[0] );
     console.log("isOwner : " + (ownervar.toLowerCase() === accounts[0].toLowerCase()));
     setAdmin((ownervar.toLowerCase() === accounts[0].toLowerCase()));
-    setOwner(ownervar);
+    if ( setAdmin ) { 
+      setOwnerAddress(ownervar);
+    }
+  };
+
+  function getVoter() {
+    /* check if this account is one of the voters */
+    let isFound = false;
+    listAddress.map((address, id) => {
+      if ((address.toLowerCase() === accounts[0].toLowerCase())) {
+        isFound = true;
+      }
+    })
+
+    setVoter(isFound);
+    console.log("listAddress: ", listAddress );
+    console.log("isVoter: ", isFound );
   };
 
   useEffect(() => {
@@ -31,39 +49,35 @@ function Web3stuff() {
 
     if (contract?.methods) {
       getOwner();
+      getVoter();
     }
   }, [contract]);
 
   return (
     <div className="web3stuff">
-        <Address accounts={accounts}/>
-        {(owner && owner.length > 0) && (
-                <div className="ownerAddressClass">
-                    The owner address is: <br /> {owner} <br />
-                </div>
-        )}
+        <Address accounts={accounts} />
         <div className="section1">
-          {isAdmin==true ? <div className="adminDiv">Owner is connected : YES</div> : <div className="adminDiv">Owner is connected : NO</div>  } 
+          {isAdmin==true ? <div className="adminDiv">Owner : YES</div> : <div className="adminDiv">Owner : NO</div>  } 
+          {isAdmin==true && (<div className="ownerAddressClass"> The owner address is: <br /> {ownerAddress} <br /> </div>)}
+          {isVoter==true ? <div className="voterDiv">Voter : YES</div> : <div className="adminDiv">Voter : NO</div>  } 
         </div>
 
-        { // Only for the owner ;-)
-         isAdmin && (
-          <div className="section2">
-            <ButtonAddVoter />
-              
+          <div className="section2"> 
+              <ButtonAddVoter workflowState={workflowState} isAdmin={isAdmin} listAddress={listAddress} setlistAddress={setlistAddress} />
               <div className="section3">
-              <ButtonAddSequence />
-            
-            </div>
+                  <ButtonAddSequence workflowState={workflowState} setworkflowState={setworkflowState} isAdmin={isAdmin} isVoter={isVoter}  />
+              </div>
+              <div className="section4">
+                  <ButtonProposal workflowState={workflowState} isVoter={isVoter} />
+              </div>
          </div>
-        )}
-
-        { // Only for voters
-         isVoter && (
-        <div className="section4">
-          <ButtonProposal />
-        </div> )}
-        
+         <div className="listVoter"> List of all voters address in Index:
+            {listAddress.map((address, id) => {
+                return (
+                    <h4 key={id}> {id} : {address} </h4>
+                );
+            })}
+            </div>
     </div>
   );
 }

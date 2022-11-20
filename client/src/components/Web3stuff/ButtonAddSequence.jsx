@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ButtonAddSequence(props) {
+function ButtonAddSequence({ workflowState, setworkflowState, isAdmin, isVoter }) {
     const { state: { contract, accounts, web3 } } = useEth();
-    const [workflowState, setworkflowState] = useState("0");
+  
 
     const getWorkFlowState = async() => {
         const stateWflow = await contract.methods.workflowStatus().call({from : accounts[0]});
@@ -45,12 +45,12 @@ function ButtonAddSequence(props) {
                 <div className="actual_sequence">
                    Current state : {workflowState}
                 </div>
-                <h3>Please select the next state</h3>
-                {workflowState === "0" && (<button onClick={startProposalsRegistering}>Start proposals</button>)}
-                {workflowState === "1" && (<button onClick={endProposalsRegistering}>End proposal</button>)}
-                {workflowState === "2" && (<button onClick={startVotingSession}>Start voting</button>)}
-                {workflowState === "3" && (<button onClick={endVotingSession}>End voting</button>)}
-                {workflowState === "4" && (<button onClick={tallyVotes}>Tally votes</button>)}
+                    {isAdmin && (<h3>Please select the next state</h3>)}
+                    {isAdmin && workflowState === "0" && (<button onClick={startProposalsRegistering}>Start proposals</button>)}
+                    {isAdmin && workflowState === "1" && (<button onClick={endProposalsRegistering}>End proposal</button>)}
+                    {isAdmin && workflowState === "2" && (<button onClick={startVotingSession}>Start voting</button>)}
+                    {isAdmin && workflowState === "3" && (<button onClick={endVotingSession}>End voting</button>)}
+                    {isAdmin && workflowState === "4" && (<button onClick={tallyVotes}>Tally votes</button>)}
         </div>
         );
 }

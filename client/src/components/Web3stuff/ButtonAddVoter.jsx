@@ -1,10 +1,9 @@
 import { useRef, useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ButtonAddVoter(props) {
+function ButtonAddVoter({workflowState, isAdmin, listAddress, setListAddress} ) {
     const { state: { contract, accounts, web3 } } = useEth();
     const [inputAddress, setInputAddress] = useState("");
-    const [listAddress, setListAddress] = useState([]);
 
     const handleAddressChange = e => {
         // allow only hex digit for the address
@@ -14,6 +13,9 @@ function ButtonAddVoter(props) {
     };
 
     const addVoter = async () => {
+        if (!web3.utils.isAddress(inputAddress)) {
+            alert("invalid address")
+        }
         // use addVoter from the smart contract 
         const transac = await contract.methods.addVoter(inputAddress).send({from: accounts[0]});
         console.log("added voter");
@@ -37,12 +39,12 @@ function ButtonAddVoter(props) {
 
     return (
         <div className="btns">
-
-        <input type="text" placeholder="addressList" value={inputAddress} onChange={handleAddressChange} />
-
-            <div className="addVoter">
-                <button onClick={addVoter} className="input-btn"> Add a Voter </button>
-            </div>
+            { isAdmin && ( 
+                <div className="addVoterAdmin">
+                    <input type="text" placeholder="addressList" value={inputAddress} onChange={handleAddressChange} />
+                    <div className="addVoter"> <button onClick={addVoter} className="input-btn"> Add a Voter </button> </div>
+                </div>
+            )}
 
             <div className="list"> List of all voters address:
             {listAddress.map((address, id) => {

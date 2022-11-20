@@ -1,18 +1,23 @@
 import { useRef, useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ButtonProposal(props) {
+function ButtonProposal( {workflowState, isVoter}) {
     const { state: { contract, accounts, web3 } } = useEth();
-    const [proposalList, setProposalList] = useState("0");
+    const [proposalList, setProposalList] = useState([]);
     const [text, setText] = useState("");
 
     const handleTextChange = e => {
         setText(e.target.value);
-    };
+    }
 
     const addProposal = async() => {
         console.log("addProposal");
+
+        // Add proposal (call smart contract)
         await contract.methods.addProposal(text).send({from : accounts[0]});
+
+        //setProposalList.push(text);
+        setProposalList(oldArray => [...oldArray,text] );
     }
 
     return (
@@ -24,10 +29,12 @@ function ButtonProposal(props) {
                 );
             })}
             </div>
+            { isVoter && workflowState === "1" && (
             <div className="addText">
                 <button onClick={addProposal} className="input-txt"> Add a proposal </button>
                 <input type="text" placeholder="proposalList" value={text} onChange={handleTextChange} />
             </div>
+            )}
         </div>
     );
 }
