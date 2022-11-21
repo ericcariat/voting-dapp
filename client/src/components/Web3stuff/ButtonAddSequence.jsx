@@ -3,11 +3,17 @@ import useEth from "../../contexts/EthContext/useEth";
 
 function ButtonAddSequence({ workflowState, setworkflowState, isAdmin, isVoter }) {
     const { state: { contract, accounts, web3 } } = useEth();
+    const [strState, setStrState] = useState("RegisteringVoters");
   
-
     const getWorkFlowState = async() => {
         const stateWflow = await contract.methods.workflowStatus().call({from : accounts[0]});
         setworkflowState(stateWflow);
+        if (workflowState === "0") { setStrState("Registering Voters")};
+        if (workflowState === "1") { setStrState("Proposals Registration Started")};
+        if (workflowState === "2") { setStrState("Proposals Registration Ended")};
+        if (workflowState === "3") { setStrState("Voting Session Started")};
+        if (workflowState === "4") { setStrState("Voting Session Ended")};
+        if (workflowState === "5") { setStrState("Votes Tallied")};
     }
     
     const startProposalsRegistering = async() => {
@@ -43,7 +49,7 @@ function ButtonAddSequence({ workflowState, setworkflowState, isAdmin, isVoter }
     return (
         <div className="btns_sequence">
                 <div className="actual_sequence">
-                <p> <br></br> Current state : {workflowState} </p>
+                <p> <br></br> Current state : {strState} [{workflowState} ]</p>
                 <p><br></br></p>
                 </div>
                     {isAdmin && workflowState != "5" && (<h3>Please select the next state</h3>)}

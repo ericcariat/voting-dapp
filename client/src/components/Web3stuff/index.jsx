@@ -8,14 +8,10 @@ import ButtonProposal from "./ButtonProposal";
 
 function Web3stuff() {
   const { state: { contract, accounts } } = useEth();
-  const [balance, setBalance] = useState();
   const [ownerAddress, setOwnerAddress] = useState("");
   const [isAdmin, setAdmin] = useState(false);
   const [isVoter, setVoter] = useState(false);
   const [listAddress, setlistAddress] = useState([]);
-  const [EventValue, setEventValue] = useState("");
-  const [oldEvents, setOldEvents] = useState([]);
-  const [inputAddress, setInputAddress] = useState("");
   const [workflowState, setworkflowState] = useState("0");
   const [winner, setWinner] = useState("");
 
@@ -58,15 +54,11 @@ function Web3stuff() {
     if (contract?.methods) {
       getOwner();
       getVoter();
-    }
-  }, [contract]);
-
-  useEffect(() => {
-
-    if (contract?.methods) {
       getWinner();
     }
-  }, [workflowState]);
+  }, [contract,workflowState, isVoter, listAddress]);
+
+
 
   return (
     <div className="web3stuff">
