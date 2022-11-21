@@ -133,6 +133,15 @@ hr {
   font-size: 1.2rem;
 }
 
+#App .section3 {
+  text-align: center;
+}
+
+#App .list {
+  text-align: center;
+}
+
+
 #App .container footer {
   padding-bottom: 7.5rem;
 }

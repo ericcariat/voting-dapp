@@ -68,7 +68,7 @@ function Web3stuff() {
           {isVoter==true ? <div className="voterDiv">Voter : YES</div> : <div className="voterDiv">Voter : NO</div>  } 
         </div>
 
-            { isVoter && workflowState === "5" && ( <div className="result">  The winner is {winner} </div> )}
+            { isVoter && workflowState === "5" && ( <div className="result">  <h3> The winner is {winner} </h3></div> )}
 
           <div className="section2"> 
               <ButtonAddVoter workflowState={workflowState} isAdmin={isAdmin} listAddress={listAddress} setlistAddress={setlistAddress} />

@@ -48,6 +48,7 @@ function ButtonProposal( {workflowState, isVoter}) {
  
     return (
         <div className="proposal">
+            <p><br></br></p>
             <div className="list"> List of all proposal:
             {proposalList.map((proposal, id) => {
                 return (
