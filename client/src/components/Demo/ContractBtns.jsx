@@ -1,18 +1,17 @@
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ContractBtns({ setValue, setValueStr }) {
+
+function ContractBtns({ setValue, setText }) {
   const { state: { contract, accounts } } = useEth();
   const [inputValue, setInputValue] = useState("");
-  const [inputValueStr, setInputValueStr] = useState("");
+  const [inputText, setInputText] = useState("");
+
 
   const handleInputChange = e => {
     if (/^\d+$|^$/.test(e.target.value)) {
       setInputValue(e.target.value);
     }
-  };
-  const handleInputChangeStr = e => {
-      setInputValueStr(e.target.value);
   };
 
   const read = async () => {
@@ -20,10 +19,15 @@ function ContractBtns({ setValue, setValueStr }) {
     setValue(value);
   };
 
-  const fctreadStr = async () => {
-    const value = await contract.methods.greet().call({ from: accounts[0] });
-    setValueStr(value);
-  };
+  function getRPCErrorMessage(err){
+    var open = err.stack.indexOf('{')
+    var close = err.stack.lastIndexOf('}')
+    var j_s = err.stack.substring(open, close + 1);
+    var j = JSON.parse(j_s);
+    var reason = j.data[Object.keys(j.data)[0]].reason;
+    return reason;
+}
+
 
   const write = async e => {
     if (e.target.tagName === "INPUT") {
@@ -34,30 +38,44 @@ function ContractBtns({ setValue, setValueStr }) {
       return;
     }
     const newValue = parseInt(inputValue);
-    await contract.methods.write(newValue).send({ from: accounts[0] });
+
+    try {
+      await contract.methods.write(newValue).call();
+      await contract.methods.write(newValue).send({ from: accounts[0] });
+    }
+    catch (err) {
+      alert(err);
+    }
   };
 
-  const fctwriteStr = async e => {
+  const handleTextChange = e => {
+      setInputText(e.target.value);
+  };
+
+  const greet = async () => {
+    const text = await contract.methods.greet().call();
+    setText(text);
+  };
+
+  const setGreet = async e => {
     if (e.target.tagName === "INPUT") {
       return;
     }
-    if (inputValueStr === "") {
+    if (inputText === "") {
       alert("Please enter a value to write.");
       return;
     }
-    const newValueStr = inputValueStr;
-    await contract.methods.setGreet(newValueStr).send({ from: accounts[0] });
+    const newText = inputText;
+    const result = await contract.methods.setGreet(newText).send({ from: accounts[0] });
+    console.log(result);
   };
+
 
   return (
     <div className="btns">
 
       <button onClick={read}>
         read()
-      </button>
-
-      <button onClick={fctreadStr}>
-        readStr()
       </button>
 
       <div onClick={write} className="input-btn">
@@ -69,12 +87,16 @@ function ContractBtns({ setValue, setValueStr }) {
         />)
       </div>
 
-      <div onClick={fctwriteStr} className="input-btn">
-         fctwriteStr(<input
+      <button onClick={greet}>
+        greet()
+      </button>
+
+      <div onClick={setGreet} className="input-btn">
+        setGreet(<input
           type="text"
           placeholder="string"
-          value={inputValueStr}
-          onChange={handleInputChangeStr}
+          value={inputText}
+          onChange={handleTextChange}
         />)
       </div>
 

@@ -11,15 +11,14 @@ import NoticeWrongNetwork from "./NoticeWrongNetwork";
 function Demo() {
   const { state } = useEth();
   const [value, setValue] = useState("?");
-  const [valueStr, setValueStr] = useState("nothing");
-  
+  const [text, setText] = useState("??");
 
   const demo =
     <>
       <Cta />
       <div className="contract-container">
-        <Contract value={value} valueStr={valueStr} />
-        <ContractBtns setValue={setValue} setValueStr={setValueStr} />
+        <Contract value={value} text={text} />
+        <ContractBtns setValue={setValue} setText={setText} />
       </div>
       <Desc />
     </>;
