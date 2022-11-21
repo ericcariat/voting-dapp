@@ -17,6 +17,7 @@ function Web3stuff() {
   const [oldEvents, setOldEvents] = useState([]);
   const [inputAddress, setInputAddress] = useState("");
   const [workflowState, setworkflowState] = useState("0");
+  const [winner, setWinner] = useState("");
 
   /** Check if we are the owner and set isAdmin var and store owner address
    */
@@ -43,6 +44,13 @@ function Web3stuff() {
     console.log("listAddress: ", listAddress );
     console.log("isVoter: ", isFound );
   };
+  
+  const getWinner = async () => {
+    /* winner */
+    const winnerVar = await contract.methods.winningProposalID().call();
+    setWinner(winnerVar);
+    console.log("getWinner: ", winnerVar );
+};
 
   useEffect(() => {
     console.log("contract.methods", contract);
@@ -53,6 +61,14 @@ function Web3stuff() {
     }
   }, [contract]);
 
+  useEffect(() => {
+
+    if (contract?.methods) {
+      getWinner();
+    }
+  }, [workflowState]);
+
+
   return (
     <div className="web3stuff">
         <Address accounts={accounts} />
@@ -62,6 +78,8 @@ function Web3stuff() {
           {isVoter==true ? <div className="voterDiv">Voter : YES</div> : <div className="adminDiv">Voter : NO</div>  } 
         </div>
 
+            { isVoter && workflowState === "5" && ( <div className="result">  The winner is {winner} </div> )}
+
           <div className="section2"> 
               <ButtonAddVoter workflowState={workflowState} isAdmin={isAdmin} listAddress={listAddress} setlistAddress={setlistAddress} />
               <div className="section3">
@@ -70,7 +88,7 @@ function Web3stuff() {
               <div className="section4">
                   <ButtonProposal workflowState={workflowState} isVoter={isVoter} />
               </div>
-         </div>
+          </div>
          <div className="listVoter"> List of all voters address in Index:
             {listAddress.map((address, id) => {
                 return (
