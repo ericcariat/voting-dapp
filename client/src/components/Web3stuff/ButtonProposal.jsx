@@ -15,8 +15,7 @@ function ButtonProposal( {workflowState, isVoter}) {
 
         // Add proposal (call smart contract)
         await contract.methods.addProposal(text).send({from : accounts[0]});
-
-        //setProposalList.push(text);
+        // store value
         setProposalList(oldArray => [...oldArray,text] );
     }
 

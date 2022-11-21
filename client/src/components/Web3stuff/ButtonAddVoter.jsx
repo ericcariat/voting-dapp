@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ButtonAddVoter({workflowState, isAdmin, listAddress, setListAddress} ) {
+function ButtonAddVoter({workflowState, isAdmin, listAddress, setlistAddress} ) {
     const { state: { contract, accounts, web3 } } = useEth();
     const [inputAddress, setInputAddress] = useState("");
 
@@ -15,7 +15,7 @@ function ButtonAddVoter({workflowState, isAdmin, listAddress, setListAddress} ) 
     const addVoter = async () => {
         if (!web3.utils.isAddress(inputAddress)) {
             alert("invalid address")
-        }
+          }
         // use addVoter from the smart contract 
         const transac = await contract.methods.addVoter(inputAddress).send({from: accounts[0]});
         console.log("added voter");
@@ -27,7 +27,7 @@ function ButtonAddVoter({workflowState, isAdmin, listAddress, setListAddress} ) 
             });
 
         // add the return value "voterAddress" to listAddress    
-        setListAddress(
+        setlistAddress(
             addresses.map((add) => {
                 return add.returnValues.voterAddress;
                 })
