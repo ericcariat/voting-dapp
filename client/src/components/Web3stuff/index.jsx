@@ -68,14 +68,12 @@ function Web3stuff() {
     }
   }, [workflowState]);
 
-
   return (
     <div className="web3stuff">
         <Address accounts={accounts} />
         <div className="section1">
           {isAdmin==true ? <div className="adminDiv">Owner : YES</div> : <div className="adminDiv">Owner : NO</div>  } 
-          {isAdmin==true && (<div className="ownerAddressClass"> The owner address is: <br /> {ownerAddress} <br /> </div>)}
-          {isVoter==true ? <div className="voterDiv">Voter : YES</div> : <div className="adminDiv">Voter : NO</div>  } 
+          {isVoter==true ? <div className="voterDiv">Voter : YES</div> : <div className="voterDiv">Voter : NO</div>  } 
         </div>
 
             { isVoter && workflowState === "5" && ( <div className="result">  The winner is {winner} </div> )}
@@ -89,13 +87,6 @@ function Web3stuff() {
                   <ButtonProposal workflowState={workflowState} isVoter={isVoter} />
               </div>
           </div>
-         <div className="listVoter"> List of all voters address in Index:
-            {listAddress.map((address, id) => {
-                return (
-                    <h4 key={id}> {id} : {address} </h4>
-                );
-            })}
-            </div>
     </div>
   );
 }

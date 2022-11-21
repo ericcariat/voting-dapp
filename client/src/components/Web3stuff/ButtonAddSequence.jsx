@@ -43,9 +43,10 @@ function ButtonAddSequence({ workflowState, setworkflowState, isAdmin, isVoter }
     return (
         <div className="btns_sequence">
                 <div className="actual_sequence">
-                   Current state : {workflowState}
+                <p> <br></br> Current state : {workflowState} </p>
+                <p><br></br></p>
                 </div>
-                    {isAdmin && (<h3>Please select the next state</h3>)}
+                    {isAdmin && workflowState != "5" && (<h3>Please select the next state</h3>)}
                     {isAdmin && workflowState === "0" && (<button onClick={startProposalsRegistering}>Start proposals</button>)}
                     {isAdmin && workflowState === "1" && (<button onClick={endProposalsRegistering}>End proposal</button>)}
                     {isAdmin && workflowState === "2" && (<button onClick={startVotingSession}>Start voting</button>)}
