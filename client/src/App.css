@@ -16,13 +16,23 @@
 body {
   background: #000;
   color: #FFF;
-	background-image:url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/mind-flayer-1562085051.gif?resize=2480:*');
-     height: 600px; 
-  background-position: center; 
-  background-repeat: no-repeat; 
-  background-size: cover;
-
 }
+
+#App .displayOwner {
+  content: url(eleven.jpg);
+  position:absolute;
+  top: 80px;
+  left : 14%;
+  height: auto;
+  max-width: 18%;
+}
+
+#App .displayVoter {
+  content: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/mind-flayer-1562085051.gif?resize=2480:*');
+  position:absolute;
+  top: 900px;
+}
+
 
 #App .container {
   width: 40%;
