@@ -15,7 +15,7 @@ This application use :
 * Enable / Display buttons, inputs following who you are
 * some internal test are also done checksum and alert on address, etc ... 
 
-You can also test the delpoyed version on vercel here : (https://voting-dapp-stranger-5hw1.vercel.app/)
+You can also test the deployed version on vercel here : (https://voting-dapp-stranger-5hw1.vercel.app/)
 ## Getting started 
 
 First, see the video tutorial to make a "stranger" vote here : (https://www.loom.com/share/a7b16e5b46564f0eac07777d0d755393)
