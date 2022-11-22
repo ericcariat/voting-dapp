@@ -24,7 +24,7 @@ body {
   top: 80px;
   left : 14%;
   height: auto;
-  max-width: 18%;
+  max-width: 14%;
 }
 
 #App .displayVoter {
@@ -33,7 +33,9 @@ body {
   top: 900px;
 }
 
-
+#App .result {
+  text-align: center;
+}
 #App .container {
   width: 40%;
   min-width: 60rem;
