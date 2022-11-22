@@ -1,40 +1,73 @@
-# React Truffle Box
+# A stranger things voting Dapp !
 
-This box comes with everything you need to start using Truffle to write, compile, test, and deploy smart contracts, and interact with them from a React app.
+Beware of your decentralized vote ;-)
 
-## Installation
+Please find in attach a react project for a blockchain voting system 
+This is my first real experience with javascript and react ... but I'm proud to have made it !
 
-First ensure you are in an empty directory.
+This application use : 
+* Event and useEffect, and components 
+* display the connected metamask address, 
+* display if you are the owner ...  eleven appears = she has all the power ;-)
+* display if you are the voters ... = the bad guys, you will see the monster in the bottom of the page 
+* Display the list of all voters 
+* Display the list of proposal 
+* Enable / Display buttons, inputs following who you are
+* some internal test are also done checksum and alert on address, etc ... 
 
-Run the `unbox` command using 1 of 2 ways.
+You can also test the delpoyed version on vercel here : (https://voting-dapp-stranger-5hw1.vercel.app/)
+## Getting started 
 
-```sh
-# Install Truffle globally and run `truffle unbox`
-$ npm install -g truffle
-$ truffle unbox react
+First, see the video tutorial to make a "stranger" vote here : (https://www.loom.com/share/a7b16e5b46564f0eac07777d0d755393)
+
+## Directories (some important files)
+* ├── truffle - contracts => Voting.sol  the contracts with added comments 
+* ├── truffle - truffle-config.js => with commented gas limit (otherwise you can't deploy) 
+* └─── client - src 
+*               ├── App.jsx    => Footer & stranger things Logo 
+*               └── components 
+*                      ├── LogoST.jsx : stranger things Logo 
+*                      └─── Web3stuff
+*                               ├── Address.jsx : 
+*                               ├── Button.jsx : 
+*                               ├── ButtonAddSequence.jsx : 
+*                               ├── ButtonAddVoter.jsx : 
+*                               ├── ButtonProposal.jsx : 
+*                               └── index.jsx : 
+
+## Requirements 
+
+* truffle 
+* ganache 
+* Solidity 0.8.13
+* vercel (with Node in version 16.x )
+Please change the node version on vercel : 
+https://vercel.com/changelog/node-js-version-now-customizable-in-the-project-settings
+
+
+## Usage Localhost : 
+
+First run ganache (with mnemonics from your test wallet)
+```
+ganache
+```
+Migrate the app 
+```
+cd truffle 
+truffle migrate --reset
+```
+cd client 
+npm run start
 ```
 
-```sh
-# Alternatively, run `truffle unbox` via npx
-$ npx truffle unbox react
-```
+## Result
 
-Start the react dev server.
+Here is a screnshot of the application 
 
-```sh
-$ cd client
-$ npm start
-  Starting the development server...
-```
 
-From there, follow the instructions on the hosted React app. It will walk you through using Truffle and Ganache to deploy the `SimpleStorage` contract, making calls to it, and sending transactions to change the contract's state.
+## Usage vercel 
 
-## FAQ
+https://voting-dapp-stranger-5hw1.vercel.app/
 
-- __How do I use this with Ganache (or any other network)?__
-
-  The Truffle project is set to deploy to Ganache by default. If you'd like to change this, it's as easy as modifying the Truffle config file! Check out [our documentation on adding network configurations](https://trufflesuite.com/docs/truffle/reference/configuration/#networks). From there, you can run `truffle migrate` pointed to another network, restart the React dev server, and see the change take place.
-
-- __Where can I find more resources?__
-
-  This Box is a sweet combo of [Truffle](https://trufflesuite.com) and [Create React App](https://create-react-app.dev). Either one would be a great place to start!
+## contract owner address on Goerli testnet 
+0x305E5dbCcFc1BC4a5aE3E67e64830ce55b51dCD6
