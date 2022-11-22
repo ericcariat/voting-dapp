@@ -97,7 +97,9 @@ contract Voting is Ownable {
     function addProposal(string calldata _desc) external onlyVoters {
         require(workflowStatus == WorkflowStatus.ProposalsRegistrationStarted, 'Proposals are not allowed yet');
         require(keccak256(abi.encode(_desc)) != keccak256(abi.encode("")), 'Vous ne pouvez pas ne rien proposer'); // facultatif
-        // voir que desc est different des autres
+
+        // limit the maximum number of proposal (see below) 
+        // require(proposalsArray.length < 20,"Sorry we have a maximum proposal limit");
 
         Proposal memory proposal;
         proposal.description = _desc;
@@ -130,6 +132,7 @@ contract Voting is Ownable {
         require(workflowStatus == WorkflowStatus.RegisteringVoters, 'Registering proposals cant be started now');
         workflowStatus = WorkflowStatus.ProposalsRegistrationStarted;
         
+        /// Probably this was a test/debug ? I would delete this (make the proposalArray correct !) or at least comments the purpose of this 
         Proposal memory proposal;
         proposal.description = "GENESIS";
         proposalsArray.push(proposal);
@@ -166,6 +169,8 @@ contract Voting is Ownable {
    function tallyVotes() external onlyOwner {
        require(workflowStatus == WorkflowStatus.VotingSessionEnded, "Current status is not voting session ended");
        uint _winningProposalId;
+
+       // To avoid too many gas fees ... I would limit the number of proposal 
       for (uint256 p = 0; p < proposalsArray.length; p++) {
            if (proposalsArray[p].voteCount > proposalsArray[_winningProposalId].voteCount) {
                _winningProposalId = p;
