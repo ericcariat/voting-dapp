@@ -1,8 +1,6 @@
-import useEth from "../../contexts/EthContext/useEth";
 
-function Logo() {
-  const { state: { accounts } } = useEth();
-  
+function LogoST() {
+
   return (
     <div class="st">
 
@@ -22,4 +20,4 @@ function Logo() {
     );
 }
 
-export default Logo;
+export default LogoST;

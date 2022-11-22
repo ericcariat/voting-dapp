@@ -1,7 +1,7 @@
 import { EthProvider } from "./contexts/EthContext";
 import Web3stuff from "./components/Web3stuff";
 import Footer from "./components/Footer";
-import Logo from "./components/Web3stuff/Logo";
+import LogoST from "./components/LogoST";
 
 import "./App.css";
 
@@ -12,7 +12,7 @@ function App() {
         <div className="container">
           <Web3stuff />
           <Footer />
-          <Logo />
+          <LogoST />
         </div>
       </div>
     </EthProvider>
