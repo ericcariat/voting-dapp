@@ -21,6 +21,7 @@ You can also test the delpoyed version on vercel here : (https://voting-dapp-str
 First, see the video tutorial to make a "stranger" vote here : (https://www.loom.com/share/a7b16e5b46564f0eac07777d0d755393)
 
 ## Directories (some important files)
+```
 ├── truffle - contracts => Voting.sol  the contracts with added comments 
 ├── truffle - truffle-config.js => with commented gas limit (otherwise you can't deploy) 
 └─── client - src 
@@ -34,6 +35,7 @@ First, see the video tutorial to make a "stranger" vote here : (https://www.loom
                               ├── ButtonAddVoter.jsx : 
                               ├── ButtonProposal.jsx : 
                               └── index.jsx : 
+```                              
 
 ## Requirements 
 
