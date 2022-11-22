@@ -21,19 +21,19 @@ You can also test the delpoyed version on vercel here : (https://voting-dapp-str
 First, see the video tutorial to make a "stranger" vote here : (https://www.loom.com/share/a7b16e5b46564f0eac07777d0d755393)
 
 ## Directories (some important files)
-* ├── truffle - contracts => Voting.sol  the contracts with added comments 
-* ├── truffle - truffle-config.js => with commented gas limit (otherwise you can't deploy) 
-* └─── client - src 
-*               ├── App.jsx    => Footer & stranger things Logo 
-*               └── components 
-*                      ├── LogoST.jsx : stranger things Logo 
-*                      └─── Web3stuff
-*                               ├── Address.jsx : 
-*                               ├── Button.jsx : 
-*                               ├── ButtonAddSequence.jsx : 
-*                               ├── ButtonAddVoter.jsx : 
-*                               ├── ButtonProposal.jsx : 
-*                               └── index.jsx : 
+├── truffle - contracts => Voting.sol  the contracts with added comments 
+├── truffle - truffle-config.js => with commented gas limit (otherwise you can't deploy) 
+└─── client - src 
+              ├── App.jsx    => Footer & stranger things Logo 
+              └── components 
+                     ├── LogoST.jsx : stranger things Logo 
+                     └─── Web3stuff
+                              ├── Address.jsx : 
+                              ├── Button.jsx : 
+                              ├── ButtonAddSequence.jsx : 
+                              ├── ButtonAddVoter.jsx : 
+                              ├── ButtonProposal.jsx : 
+                              └── index.jsx : 
 
 ## Requirements 
 
@@ -56,7 +56,9 @@ Migrate the app
 cd truffle 
 truffle migrate --reset
 ```
-cd client 
+Run the client 
+```
+cd client
 npm run start
 ```
 
@@ -70,4 +72,6 @@ Here is a screnshot of the application
 https://voting-dapp-stranger-5hw1.vercel.app/
 
 ## contract owner address on Goerli testnet 
+```
 0x305E5dbCcFc1BC4a5aE3E67e64830ce55b51dCD6
+```
