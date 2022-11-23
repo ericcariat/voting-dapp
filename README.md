@@ -76,5 +76,9 @@ https://voting-dapp-stranger-5hw1.vercel.app/
 
 ## contract owner address on Goerli testnet 
 ```
+Owner address
 0x305E5dbCcFc1BC4a5aE3E67e64830ce55b51dCD6
+Smart contract address
+0xD625E90EB650d479D250c67E3426aDb1fe8D873C
 ```
+See on etherscan : https://goerli.etherscan.io/address/0xD625E90EB650d479D250c67E3426aDb1fe8D873C
