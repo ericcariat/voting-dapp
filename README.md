@@ -16,9 +16,10 @@ This application use :
 * some internal test are also done checksum and alert on address, etc ... 
 
 You can also test the deployed version on vercel here : (https://voting-dapp-stranger-5hw1.vercel.app/)
-## Getting started 
+## Getting started Video 
 
 First, see the video tutorial to make a "stranger" vote here : (https://www.loom.com/share/a7b16e5b46564f0eac07777d0d755393)
+(done on the localhost, vercel app is also running see below)
 
 ## Directories (some important files)
 ```
@@ -73,6 +74,10 @@ Here is a screnshot of the application
 ## Usage vercel 
 
 https://voting-dapp-stranger-5hw1.vercel.app/
+
+Screenshot on vercel 
+<img width="947" alt="image" src="https://user-images.githubusercontent.com/23697098/203451974-7b4daa50-01f6-47d6-8b88-e2f4c4f5c902.png">
+
 
 ## contract owner address on Goerli testnet 
 ```
